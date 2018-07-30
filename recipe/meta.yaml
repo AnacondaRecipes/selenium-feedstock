@@ -11,9 +11,13 @@ source:
 build:
   number: 0
   script: python -m pip install --no-deps --ignore-installed .
+  missing_dso_whitelist:  # [osx]
+    - '*'                 # [osx]
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
     - pip
   run:
