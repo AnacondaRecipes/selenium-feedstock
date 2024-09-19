@@ -3,7 +3,10 @@
 package:
   name: selenium
   version: {{ version }}
-
+#  Added 0000-no-rust-setup.patch to remove all references to Rust
+#  extensions from setup.py. This includes removing the import of setuptools_rust and
+#  the rust_extensions configuration, which resolves build failures caused by the unnecessary
+#   inclusion of Rust extensions.
 source:
   patches:
     - 0000-no-rust-setup.patch
@@ -20,6 +23,8 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - patch       # [not win]
+    - m2-patch    # [win]
   host:
     - python
     - pip
@@ -30,7 +35,7 @@ requirements:
     - urllib3 >=1.26,<3
     - trio >=0.17,<1.0
     - trio-websocket >=0.9,<1.0
-    - certifi>=2021.10.8
+    - certifi >=2021.10.8
     - typing_extensions >=4.9,<5.0
     - websocket-client >=1.8,<2.0
 
@@ -55,9 +60,9 @@ test:
     - selenium.webdriver.wpewebkit
 
 about:
-  home: http://www.seleniumhq.org/
+  home: https://www.seleniumhq.org/
   license_file: {{ RECIPE_DIR }}/LICENSE
-  license: Apache 2.0
+  license: Apache-2.0
   license_family: Apache
   summary: 'Python bindings for the Selenium WebDriver for automating web browser interaction.'
   description: |
@@ -65,7 +70,7 @@ about:
     specification — a platform and language-neutral coding interface compatible
     with all major web browsers.
   dev_url: https://github.com/SeleniumHQ/selenium/
-  doc_url: http://www.seleniumhq.org/docs/
+  doc_url: https://www.seleniumhq.org/docs/
 
 extra:
   recipe-maintainers:
