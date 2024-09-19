@@ -24,7 +24,7 @@ requirements:
     - python
     - pip
     - setuptools
-    # Failed to build installable wheels for some pyproject.toml based projects (selenium)
+    - wheel
   run:
     - python
     - urllib3 >=1.26,<3
@@ -33,7 +33,6 @@ requirements:
     - certifi>=2021.10.8
     - typing_extensions >=4.9,<5.0
     - websocket-client >=1.8,<2.0
-
 
 test:
   requires:
