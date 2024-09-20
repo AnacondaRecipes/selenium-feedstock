@@ -28,7 +28,7 @@ requirements:
   host:
     - python
     - pip
-    - setuptools_rust
+    - setuptools-rust
     - wheel
   run:
     - python
