@@ -70,7 +70,7 @@ about:
     specification — a platform and language-neutral coding interface compatible
     with all major web browsers.
   dev_url: https://github.com/SeleniumHQ/selenium/
-  doc_url: https://www.seleniumhq.org/docs/
+  doc_url: https://www.selenium.dev/documentation/
 
 extra:
   recipe-maintainers:
