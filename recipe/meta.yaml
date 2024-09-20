@@ -8,8 +8,8 @@ package:
 #  the rust_extensions configuration, which resolves build failures caused by the unnecessary
 #   inclusion of Rust extensions.
 source:
-  patches:
-    - 0000-no-rust-setup.patch
+  # patches:
+  #   - 0000-no-rust-setup.patch
   url: https://pypi.org/packages/source/s/selenium/selenium-{{ version }}.tar.gz
   sha256: 88281e5b5b90fe231868905d5ea745b9ee5e30db280b33498cc73fb0fa06d571
 
@@ -28,7 +28,7 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - setuptools_rust
     - wheel
   run:
     - python
