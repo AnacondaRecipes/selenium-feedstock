@@ -19,8 +19,6 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('rust') }}
-    - patch       # [not win]
-    - m2-patch    # [win]
   host:
     - python
     - pip
