@@ -1,16 +1,11 @@
+{% set name = "selenium" %}
 {% set version = "4.24.0" %}
 
 package:
-  name: selenium
+  name: {{ name }}
   version: {{ version }}
-#  Added 0000-no-rust-setup.patch to remove all references to Rust
-#  extensions from setup.py. This includes removing the import of setuptools_rust and
-#  the rust_extensions configuration, which resolves build failures caused by the unnecessary
-#   inclusion of Rust extensions.
 source:
-  patches:
-    - 0000-no-rust-setup.patch
-  url: https://pypi.org/packages/source/s/selenium/selenium-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 88281e5b5b90fe231868905d5ea745b9ee5e30db280b33498cc73fb0fa06d571
 
 build:
