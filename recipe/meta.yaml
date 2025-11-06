@@ -1,22 +1,23 @@
 {% set name = "selenium" %}
-{% set version = "4.24.0" %}
+{% set version = "4.38.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 88281e5b5b90fe231868905d5ea745b9ee5e30db280b33498cc73fb0fa06d571
+  sha256: c117af6727859d50f622d6d0785b945c5db3e28a45ec12ad85cee2e7cc84fc4c
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vvv
-  skip: True  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
+  skip: True  # [py<310]
   missing_dso_whitelist:  # [osx]
     - '*'                 # [osx]
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('rust') }}
   host:
@@ -27,21 +28,20 @@ requirements:
     - wheel
   run:
     - python
-    - urllib3 >=1.26,<3
-    - trio >=0.17,<1.0
-    - trio-websocket >=0.9,<1.0
-    - certifi >=2021.10.8
-    - typing_extensions >=4.9,<5.0
-    - websocket-client >=1.8,<2.0
+    - urllib3 >=2.5.0,<3.0
+    - trio >=0.31.0,<1.0
+    - trio-websocket >=0.12.2,<1.0
+    - certifi >=2025.10.5
+    - typing_extensions >=4.15.0,<5.0
+    - websocket-client >=1.8.0,<2.0
 
 test:
-  requires:
-    - pip
-  commands:
-    - pip check
+  files:
+    - test_selenium.py
   imports:
     - selenium
     - selenium.common
+    - selenium.types
     - selenium.webdriver.common
     - selenium.webdriver.chrome
     - selenium.webdriver.chromium
@@ -53,19 +53,28 @@ test:
     - selenium.webdriver.support
     - selenium.webdriver.webkitgtk
     - selenium.webdriver.wpewebkit
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -ra -v --tb=short test_selenium.py
 
 about:
-  home: https://www.seleniumhq.org/
-  license_file: {{ RECIPE_DIR }}/LICENSE
+  home: https://www.seleniumhq.org
   license: Apache-2.0
   license_family: Apache
-  summary: 'Python bindings for the Selenium WebDriver for automating web browser interaction.'
+  license_file:
+    - LICENSE
+    - NOTICE
+  summary: Python bindings for the Selenium WebDriver for automating web browser interaction
   description: |
     Selenium specifically provides an infrastructure for the W3C WebDriver
     specification — a platform and language-neutral coding interface compatible
     with all major web browsers.
-  dev_url: https://github.com/SeleniumHQ/selenium/
-  doc_url: https://www.selenium.dev/documentation/
+  dev_url: https://github.com/SeleniumHQ/selenium
+  doc_url: https://www.selenium.dev/documentation
 
 extra:
   recipe-maintainers:
