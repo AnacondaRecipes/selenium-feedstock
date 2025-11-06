@@ -17,6 +17,7 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('rust') }}
   host:
@@ -28,15 +29,15 @@ requirements:
   run:
     - python
     - urllib3 >=2.5.0,<3.0
-    # - trio >=0.31.0,<1.0
-    - trio >=0.30.0,<1.0
+    - trio >=0.31.0,<1.0
     - trio-websocket >=0.12.2,<1.0
     - certifi >=2025.10.5
     - typing_extensions >=4.15.0,<5.0
     - websocket-client >=1.8.0,<2.0
 
-
 test:
+  files:
+    - test_selenium.py
   imports:
     - selenium
     - selenium.common
@@ -58,7 +59,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-
+    - pytest -ra -v --tb=short test_selenium.py
 
 about:
   home: https://www.seleniumhq.org
