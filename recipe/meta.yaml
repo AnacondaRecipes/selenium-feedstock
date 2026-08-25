@@ -1,19 +1,20 @@
 {% set name = "selenium" %}
-{% set version = "4.38.0" %}
+{% set version = "4.47.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
+
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c117af6727859d50f622d6d0785b945c5db3e28a45ec12ad85cee2e7cc84fc4c
+  sha256: 4f6667c23080646e045fb91d2039687e88f549d667961f6ce85832b17384b68e
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
-  skip: True  # [py<310]
+  skip: true  # [py<310]
   missing_dso_whitelist:  # [osx]
-    - '*'                 # [osx]
+    - "*"  # [osx]
 
 requirements:
   build:
@@ -25,13 +26,12 @@ requirements:
     - pip
     - setuptools
     - setuptools-rust
-    - wheel
   run:
     - python
-    - urllib3 >=2.5.0,<3.0
+    - urllib3 >=2.6.3,<3.0
     - trio >=0.31.0,<1.0
     - trio-websocket >=0.12.2,<1.0
-    - certifi >=2025.10.5
+    - certifi >=2026.2.25
     - typing_extensions >=4.15.0,<5.0
     - websocket-client >=1.8.0,<2.0
 
