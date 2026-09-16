@@ -9,7 +9,7 @@ source:
   sha256: c117af6727859d50f622d6d0785b945c5db3e28a45ec12ad85cee2e7cc84fc4c
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   skip: True  # [py<310]
   missing_dso_whitelist:  # [osx]
@@ -20,6 +20,8 @@ requirements:
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('rust') }}
+    - clangdev  # [win and arm64]
+    - perl      # [win and arm64]
   host:
     - python
     - pip
