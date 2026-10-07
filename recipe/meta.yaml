@@ -41,7 +41,6 @@ test:
   imports:
     - selenium
     - selenium.common
-    - selenium.types
     - selenium.webdriver.common
     - selenium.webdriver.chrome
     - selenium.webdriver.chromium
