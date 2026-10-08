@@ -26,6 +26,7 @@ requirements:
     - pip
     - setuptools
     - setuptools-rust
+    - wheel
   run:
     - python
     - urllib3 >=2.6.3,<3.0
